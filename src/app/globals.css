@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #ffece1;
+  --color-oval: #fae7d9;
+  --color-blush: #e8c3c6;
+  --color-sage: #9aa890;
+  --color-gold: #b79762;
+  --color-ink: #6b5545;
+}
+
+@theme inline {
+  --font-name: var(--font-name);
+  --font-label: var(--font-label);
+}
+
+body {
+  color: var(--color-ink);
+}
+
+/* Faint pulsing ring over the ribbon bow on the intro gate's poster frame. */
+@keyframes gate-ring-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.75;
+  }
+}
+
+.animate-gate-ring-pulse {
+  animation: gate-ring-pulse 2.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-gate-ring-pulse {
+    animation: none;
+  }
+}
