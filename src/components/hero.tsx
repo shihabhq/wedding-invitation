@@ -1,7 +1,7 @@
 "use client";
 
 import { type ReactNode, useEffect, useState } from "react";
-import { INVITATION_CONTENT } from "@/lib/invitation-content";
+import { INVITATION_CONTENT, MONOGRAM_LABEL } from "@/lib/invitation-content";
 import MonogramMark from "@/components/monogram-mark";
 
 type HeroProps = {
@@ -107,7 +107,7 @@ export default function Hero({ gateClosed }: HeroProps) {
 
         <RevealItem show={revealed} delayMs={0} topPercent={MONOGRAM_TOP}>
           <div style={{ maxWidth: `${ovalMaxWidthVw(MONOGRAM_TOP)}vw` }}>
-            <MonogramMark label={INVITATION_CONTENT.monogram} />
+            <MonogramMark label={MONOGRAM_LABEL} />
           </div>
         </RevealItem>
 
