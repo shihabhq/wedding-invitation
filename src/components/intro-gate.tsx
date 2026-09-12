@@ -125,37 +125,35 @@ export default function IntroGate({ onClosed, onTap }: IntroGateProps) {
       aria-label="Tap to open the invitation"
       onClick={handleOpen}
       onKeyDown={handleKeyDown}
-      className={`fixed inset-0 z-50 bg-paper transition-opacity duration-500 ease-out ${
+      className={`fixed inset-0 z-50 overflow-hidden bg-paper transition-opacity duration-500 ease-out ${
         closing ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
-      <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-        <div className="relative w-full">
-          {/* Poster stays in normal flow — its intrinsic 0.5625 ratio sets
-              this wrapper's rendered height, letterboxed on bg-paper above
-              and below rather than cropped. The video is stacked on top at
-              the exact same box, matching object-fit/position so the
-              handoff into the hero (same ratio, same fit) is seamless. */}
-          <img
-            src="/initial-screen/elegant-poster.jpg"
-            alt=""
-            className={`w-full h-auto object-contain object-center transition-opacity duration-50 ${
-              started ? "opacity-0" : "opacity-100"
-            }`}
-          />
-          <video
-            ref={videoRef}
-            src="/initial-screen/elegant.mp4"
-            muted
-            playsInline
-            preload="auto"
-            onEnded={closeGate}
-            className={`absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-50 ${
-              started ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        </div>
-      </div>
+      {/* No aspect-locked wrapper: a fixed-ratio box always letterboxes on
+          one axis or the other depending on how the viewport's own ratio
+          compares to the artwork's (1080/1920 vs a viewport that can be
+          either narrower or wider than that) — there's no single box size
+          that avoids it for every phone. Poster and video fill this
+          fixed-positioned overlay directly via object-cover, so it's always
+          edge to edge on both axes, cropping whichever axis needs it. */}
+      <img
+        src="/initial-screen/elegant-poster.jpg"
+        alt=""
+        className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-50 ${
+          started ? "opacity-0" : "opacity-100"
+        }`}
+      />
+      <video
+        ref={videoRef}
+        src="/initial-screen/elegant.mp4"
+        muted
+        playsInline
+        preload="auto"
+        onEnded={closeGate}
+        className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-50 ${
+          started ? "opacity-100" : "opacity-0"
+        }`}
+      />
 
       {/* <div
         aria-hidden
