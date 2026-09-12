@@ -84,7 +84,7 @@ function InvitationContent() {
           artwork's own measurements to absorb whichever axis gets cropped.
         */}
         <div
-          className={`absolute left-[22%] right-[16%] top-[28%] bottom-[26%] flex flex-col items-center justify-center text-center ${reveal(
+          className={`absolute left-[22%] right-[16%] top-[15%] bottom-[26%] flex flex-col items-center justify-center text-center ${reveal(
             "motion-safe:opacity-0 motion-safe:translate-y-4",
           )}`}
         >
@@ -92,7 +92,7 @@ function InvitationContent() {
             Dear {guestName}
           </p>
 
-          <p className="mt-2 font-label text-[clamp(0.9rem,4vw,1.15rem)] leading-[1.6] text-ink">
+          <p className="mt-2 font-label text-[clamp(0.9rem,3.5vw,1.15rem)] leading-[1.6] text-ink">
             You and your family are cordially invited
           </p>
 

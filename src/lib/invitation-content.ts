@@ -24,8 +24,6 @@ export const MONOGRAM_LABEL = `${INVITATION_CONTENT.nameOne.charAt(0).toUpperCas
 // Content for the When & Where section. venue/date are the same facts as
 // above (one source of truth); eyebrow still needs real wording.
 export const WHEN_WHERE_CONTENT = {
-  eyebrow: "PLACEHOLDER EYEBROW", // TODO: short label, e.g. "The Ceremony"
-  eventLine: "Bangladesh x Persian Wedding",
   venue: INVITATION_CONTENT.venue,
   date: INVITATION_CONTENT.date,
   ceremonyTime: "8pm onwards reception",
