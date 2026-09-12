@@ -124,40 +124,117 @@ Plain, warm, human. No marketing language. No em dashes in user-facing copy.
 
 1. Initial screen (intro gate) — built
 2. Hero — monogram, names, date — built
-3. Invitation
-4. Countdown
-5. Dress code
-6. RSVP link
+3. Invitation — personalised "Dear {guest}" card, signed by the hosts — built
+4. Countdown — built
+5. When & Where — venue, date, ceremony time, map link — built
+6. Dress code — built
+7. RSVP link
 
 Build them one at a time. Do not scaffold sections that were not asked for.
 
 ## Current state
 
-Initial screen and hero are built.
+Initial screen, hero, invitation, countdown, When & Where, and dress code
+(Attire) are built (in that page order).
 
 - `src/components/intro-gate.tsx` — poster/video overlay, tap and keyboard to
-  open, fades out and unmounts on `ended` (with a duration-based fallback
-  timer), skips entirely under `prefers-reduced-motion`.
-- `src/components/hero.tsx` — hero-frame.jpg full bleed, monogram/names/rule/
-  date/venue staggered into place once the gate closes.
-- `src/app/page.tsx` — owns `gateClosed` and wires the two together.
-- `src/lib/fonts.ts` — `FONT_OPTION` picks the name typeface (`"A"` Pinyon
-  Script, `"B"` Italianno, `"C"` Playfair Display italic); currently `"A"`.
-- `src/lib/invitation-content.ts` — placeholder names, date and venue. Real
-  details still needed before this can go out.
+  open, starts the background audio in the same synchronous tap handler as
+  `video.play()`, fades out and unmounts on `ended` (with a duration-based
+  fallback timer), skips entirely under `prefers-reduced-motion`.
+- `src/components/hero.tsx` — hero-frame.jpg rendered `object-contain` on
+  `bg-paper` (not cropped), monogram/names/rule/date staggered into place
+  once the gate closes. Per-line top offsets and max-widths against the oval
+  are in the constants above `MONOGRAM_TOP`, interpolated from measurements
+  given in chat, not from looking at the artwork directly — checked visually
+  at 360/390/430 and adjusted since.
+- `src/components/monogram-mark.tsx` — SVG arch-and-crest monogram behind the
+  initials. This is a deliberate exception to the "texture is a pre-rendered
+  asset" rule above, standing in until a real embossed asset exists; it reads
+  flatter than the surrounding art.
+- `src/components/invitation.tsx` — background.jpg (Mughal arch, offset-right
+  clear panel) is plain `w-full h-auto` on `bg-paper`, no object-fit — a page
+  section, not a full-height frame. Text box uses the given asymmetric
+  `left-[27%] right-[19%] top-[30%] bottom-[34%]` band (tassel above, marble
+  floor below). Guest name comes from the `to` search param
+  (`useSearchParams`, wrapped in its own internal `<Suspense>` so the page
+  stays statically prerendered), HTML-stripped and falling back to "Guest".
+  The "you are receiving this…" disclaimer sits below the artwork in normal
+  flow since it doesn't fit inside the panel. Same
+  `IntersectionObserver` + `motion-safe:` fade as the other sections, applied
+  to both text blocks.
+- `src/components/countdown.tsx` — no illustrated asset, just the page's own
+  tokens: `bg-paper`, ink numbers, gold unit labels, each unit in a plain
+  white rounded box (flat color only, no shadow). Ticks live via
+  `setInterval`, counting down to `WEDDING_DATETIME`. Renders `null`-backed
+  placeholders (`00`) until mount so server and client markup match, then
+  fills in the real value — a guest's clock, not the server's, is what
+  should drive this. Fades in once via the same `IntersectionObserver` +
+  `motion-safe:` pattern as When & Where.
+- `src/components/when-where.tsx` — background.jpg rendered `object-contain`
+  on `#FFF5E4`, one safe box (`inset-x-[22%] top-[20%] bottom-[34%]`) holding
+  heading/eyebrow/rule/event line/venue/date/time, plus a separately
+  positioned "View map" button. Fades in once via `IntersectionObserver`,
+  `motion-safe:`-gated. The button's spec position (`bottom-[22%]`, "over the
+  pale sky") lands on the domed skyline in this asset, so it's been moved to
+  `bottom-[30%]` with a translucent pill fill — check that still holds if the
+  background asset changes.
+- `src/components/attire.tsx` — dresses.png is a transparent PNG, not a
+  full-bleed frame, so it's plain `w-full h-auto` on `bg-paper`, no
+  object-fit. Text sits below it in normal flow (not overlaid), final copy
+  (not placeholders) written straight into the component since it's generic
+  instructions rather than per-wedding facts. The "women" line's given type
+  size wrapped with an orphaned "wear" on its own line at all three widths;
+  fixed with `text-balance` rather than changing the given font size,
+  padding, or tracking. Same `IntersectionObserver` + `motion-safe:` fade as
+  When & Where, applied to the text block only (the art itself doesn't fade).
+- `src/components/mute-toggle.tsx` — fixed top-right, appears once
+  `gateClosed`, toggles the shared `<audio>` element.
+- `src/components/section-divider.tsx` — thin gold hairline + diamond
+  between Countdown and When & Where, same motif as When & Where's own
+  rule. Countdown is flat `bg-paper`; When & Where's artwork starts with an
+  illustrated border right at its top edge, so without this the cut from
+  plain color straight into dense illustration read as a layout bug rather
+  than a section change. A CSS fade over the artwork was considered and
+  rejected — same "texture is a pre-rendered asset, not CSS" reasoning as
+  elsewhere in this file; a real fade would need the asset's top edge
+  redrawn to blend into a flat tone before the border starts.
+- `src/app/page.tsx` — owns `gateClosed`, the shared `<audio>` ref and its
+  volume ramp, and wires IntroGate/Hero/Invitation/Countdown/SectionDivider/
+  WhenWhere/Attire/MuteToggle together, in that order.
+- `src/lib/fonts.ts` — Alex Brush for names, Marcellus for small lines, both
+  via `next/font/google`. No switching constant; Alex Brush was chosen after
+  trying the font-option approach this file used to describe.
+- `src/lib/invitation-content.ts` — `INVITATION_CONTENT` (names, date, venue)
+  and `WHEN_WHERE_CONTENT` (eyebrow, event line, venue/date reused from
+  `INVITATION_CONTENT`, ceremony time). `MONOGRAM_LABEL` is derived from the
+  two names, not stored separately. `WEDDING_DATETIME` is the same date as an
+  actual instant (with a Bangladesh +06:00 offset) for the countdown to
+  target — keep it in sync with `date` by hand if the date ever changes, and
+  narrow its midnight guess once a real ceremony start time exists. Only the
+  eyebrow line is still a marked placeholder; everything else has real
+  values.
 - Design tokens (`paper`, `oval`, `blush`, `sage`, `gold`, `ink`) are
-  registered as Tailwind colors in `src/app/globals.css`.
+  registered as Tailwind colors in `src/app/globals.css`. When & Where's own
+  paper tone (`#FFF5E4`) is asset-specific and used inline, not added to this
+  table.
+- `public/audio/wedding-audio.mp3` — background track, looped, ramped to 0.35
+  on the gate tap.
+- `public/where/background.jpg` — When & Where's Persian-arch artwork.
+- `public/attire/dresses.png` — Attire's transparent embroidered-guests
+  artwork.
+- `public/invite/background.jpg` — Invitation's Mughal-arch artwork.
 
 Renamed `public/inital-screen/` (typo, and it held all three assets) to
 `public/initial-screen/` and moved `hero-frame.jpg` into a new
-`public/hero/` to match this file's asset paths.
+`public/hero/` to match this file's asset paths. This project no longer has
+a `.git` — removed at the client's request.
 
-Not yet built: invitation, countdown, dress code, RSVP link.
+Not yet built: RSVP link.
 
-Unverified: the hero's per-line vertical offsets and max-widths against the
-oval were computed from the four measurements in this file, not from looking
-at the artwork — see the note in `hero.tsx` above `MONOGRAM_TOP`. Check at
-360/390/430 before trusting them.
+Still placeholder: When & Where's eyebrow line. The "View map" link searches
+Google Maps for the venue name only ("Hotel Intercontinental"), which is
+ambiguous without a city — worth a city/country added to `venue` once
+confirmed.
 
 ## When you are unsure
 

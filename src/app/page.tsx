@@ -1,9 +1,14 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import Attire from "@/components/attire";
+import Countdown from "@/components/countdown";
 import Hero from "@/components/hero";
 import IntroGate from "@/components/intro-gate";
+import Invitation from "@/components/invitation";
 import MuteToggle from "@/components/mute-toggle";
+import SectionDivider from "@/components/section-divider";
+import WhenWhere from "@/components/when-where";
 
 const AUDIO_VOLUME = 0.35;
 const AUDIO_RAMP_MS = 1500;
@@ -30,16 +35,29 @@ export default function Home() {
     let step = 0;
     const ramp = setInterval(() => {
       step += 1;
-      audio.volume = Math.min(AUDIO_VOLUME, (AUDIO_VOLUME * step) / AUDIO_RAMP_STEPS);
+      audio.volume = Math.min(
+        AUDIO_VOLUME,
+        (AUDIO_VOLUME * step) / AUDIO_RAMP_STEPS,
+      );
       if (step >= AUDIO_RAMP_STEPS) clearInterval(ramp);
     }, stepMs);
   }, []);
 
   return (
     <>
-      <audio ref={audioRef} src="/audio/wedding-audio.mp3" loop preload="auto" />
+      <audio
+        ref={audioRef}
+        src="/audio/wedding-audio.mp3"
+        loop
+        preload="auto"
+      />
       <IntroGate onClosed={handleGateClosed} onTap={startAudio} />
       <Hero gateClosed={gateClosed} />
+      <Countdown />
+      <SectionDivider />
+      <WhenWhere />
+      <Attire />
+      <Invitation />
       <MuteToggle audioRef={audioRef} visible={gateClosed} />
     </>
   );
