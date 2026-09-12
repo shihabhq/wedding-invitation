@@ -69,9 +69,9 @@ export default function WhenWhere() {
           When &amp; Where
         </h2>
 
-        <p className="mt-2 font-label text-[10px] uppercase tracking-[0.22em] text-ink">
+        {/* <p className="mt-2 font-label text-[10px] uppercase tracking-[0.22em] text-ink">
           {WHEN_WHERE_CONTENT.eyebrow}
-        </p>
+        </p> */}
 
         <div className="my-3 flex w-[55%] items-center gap-2">
           <span className="h-px flex-1 bg-gold" />
@@ -79,9 +79,9 @@ export default function WhenWhere() {
           <span className="h-px flex-1 bg-gold" />
         </div>
 
-        <p className="font-label italic text-[clamp(1.05rem,5vw,1.5rem)] text-ink">
+        {/* <p className="font-label italic text-[clamp(1.05rem,5vw,1.5rem)] text-ink">
           {WHEN_WHERE_CONTENT.eventLine}
-        </p>
+        </p> */}
 
         <div className="mt-3 font-label text-[clamp(0.95rem,4.2vw,1.25rem)] leading-[1.5] text-ink">
           <p>{WHEN_WHERE_CONTENT.venue}</p>
@@ -99,7 +99,7 @@ export default function WhenWhere() {
         even where a rooftop or minaret tip still reaches into that band.
       */}
       <div
-        className={`absolute inset-x-0 bottom-[26%] flex justify-center ${reveal(
+        className={`absolute inset-x-0 bottom-[38%] flex justify-center ${reveal(
           "motion-safe:opacity-0 motion-safe:translate-y-4",
         )}`}
       >

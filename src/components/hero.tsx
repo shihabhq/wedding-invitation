@@ -95,7 +95,7 @@ export default function Hero({ gateClosed }: HeroProps) {
 
   useEffect(() => {
     if (!gateClosed) return;
-    const timer = setTimeout(() => setRevealed(true), 300);
+    const timer = setTimeout(() => setRevealed(true), 100);
     return () => clearTimeout(timer);
   }, [gateClosed]);
 
@@ -105,7 +105,7 @@ export default function Hero({ gateClosed }: HeroProps) {
     "font-name text-[clamp(2.4rem,12vw,3.4rem)] leading-none text-ink";
 
   return (
-    <section className="relative h-[100svh] overflow-hidden bg-paper">
+    <section className="relative h-svh overflow-hidden bg-paper">
       {/* No aspect-locked wrapper: a fixed-ratio box always letterboxes on
           one axis or the other depending on how the viewport's own ratio
           compares to the artwork's — there's no single box size that
@@ -126,7 +126,7 @@ export default function Hero({ gateClosed }: HeroProps) {
         </div>
       </RevealItem>
 
-      <RevealItem show={revealed} delayMs={400} topPercent={NAME_ONE_TOP}>
+      <RevealItem show={revealed} delayMs={100} topPercent={NAME_ONE_TOP}>
         <span
           className={nameClassName}
           style={{ maxWidth: `${ovalMaxWidthVw(NAME_ONE_TOP)}vw` }}
@@ -135,13 +135,13 @@ export default function Hero({ gateClosed }: HeroProps) {
         </span>
       </RevealItem>
 
-      <RevealItem show={revealed} delayMs={800} topPercent={AMPERSAND_TOP}>
+      <RevealItem show={revealed} delayMs={300} topPercent={AMPERSAND_TOP}>
         <span className="font-name text-[clamp(1.5rem,6vw,2.1rem)] leading-none text-gold">
           &amp;
         </span>
       </RevealItem>
 
-      <RevealItem show={revealed} delayMs={1200} topPercent={NAME_TWO_TOP}>
+      <RevealItem show={revealed} delayMs={400} topPercent={NAME_TWO_TOP}>
         <span
           className={nameClassName}
           style={{ maxWidth: `${ovalMaxWidthVw(NAME_TWO_TOP)}vw` }}
@@ -150,11 +150,11 @@ export default function Hero({ gateClosed }: HeroProps) {
         </span>
       </RevealItem>
 
-      <RevealItem show={revealed} delayMs={1600} topPercent={RULE_TOP}>
+      <RevealItem show={revealed} delayMs={600} topPercent={RULE_TOP}>
         <span className="h-px w-10 bg-gold" />
       </RevealItem>
 
-      <RevealItem show={revealed} delayMs={1900} topPercent={DATE_TOP}>
+      <RevealItem show={revealed} delayMs={800} topPercent={DATE_TOP}>
         <span
           className="font-label text-xs uppercase tracking-[0.2em] text-ink"
           style={{ maxWidth: `${ovalMaxWidthVw(DATE_TOP)}vw` }}
