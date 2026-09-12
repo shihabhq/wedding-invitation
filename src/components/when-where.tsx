@@ -42,15 +42,26 @@ export default function WhenWhere() {
   const mapsUrl = buildGoogleMapsUrl(WHEN_WHERE_CONTENT.venue);
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-[#FFF5E4]">
+    <section
+      ref={sectionRef}
+      className="relative h-[100svh] overflow-hidden bg-[#FFF5E4]"
+    >
+      {/* No aspect-locked wrapper: a fixed-ratio box always letterboxes on
+          one axis or the other depending on how the viewport's own ratio
+          compares to the artwork's — there's no single box size that
+          avoids it for every phone. The image fills the section directly
+          via object-cover, so it's always edge to edge on both axes. Text
+          and the button below are positioned against the section now (not
+          the image), so their boxes are widened ~4% per side from what the
+          artwork's own measurements gave, to absorb that drift. */}
       <img
         src="/where/background.jpg"
         alt=""
-        className="w-full h-auto object-contain object-center"
+        className="absolute inset-0 h-full w-full object-cover object-center"
       />
 
       <div
-        className={`absolute inset-x-[22%] top-[20%] bottom-[34%] flex flex-col items-center justify-center text-center ${reveal(
+        className={`absolute inset-x-[18%] top-[16%] bottom-[30%] flex flex-col items-center justify-center text-center ${reveal(
           "motion-safe:opacity-0 motion-safe:translate-y-4",
         )}`}
       >
@@ -80,12 +91,12 @@ export default function WhenWhere() {
       </div>
 
       {/*
-        Spec put this at bottom-[22%] "over the pale sky," but in this asset
-        that band sits on the domed skyline — border/text render correctly
-        but wash out against the detail behind them. Moved up into the
-        actual clean sky gap between the text block and the skyline, and
-        given a soft translucent fill so it stays legible even where a
-        rooftop or minaret tip still reaches into that band.
+        Spec put this at bottom-[22%] "over the pale sky," but in this
+        asset that band sits on the domed skyline — border/text render
+        correctly but wash out against the detail behind them. Moved up
+        into the actual clean sky gap between the text block and the
+        skyline, and given a soft translucent fill so it stays legible
+        even where a rooftop or minaret tip still reaches into that band.
       */}
       <div
         className={`absolute inset-x-0 bottom-[26%] flex justify-center ${reveal(

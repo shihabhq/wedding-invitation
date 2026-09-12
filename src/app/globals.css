@@ -18,6 +18,15 @@ body {
   color: var(--color-ink);
 }
 
+/* Smooth scroll for in-page anchors only — no scroll-hijacking library.
+   Gated behind no-preference so a reduced-motion guest gets the browser's
+   plain instant jump instead. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /* Faint pulsing ring over the ribbon bow on the intro gate's poster frame. */
 @keyframes gate-ring-pulse {
   0%,
@@ -37,6 +46,63 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-gate-ring-pulse {
+    animation: none;
+  }
+}
+
+/* Falling petals background ambience (components/falling-petals.tsx). One
+   keyframe set shared by all twelve petals; per-petal variation (sway
+   distance, total rotation, peak opacity) comes in as custom properties set
+   inline per element, not as separate keyframes. Only transform and opacity
+   are animated. */
+@keyframes petal-fall {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: var(--petal-opacity, 0.4);
+  }
+  25% {
+    transform: translateY(23.75vh) translateX(var(--petal-sway, 20px))
+      rotate(calc(var(--petal-rotate, 240deg) * 0.25));
+  }
+  50% {
+    transform: translateY(57.5vh) translateX(calc(var(--petal-sway, 20px) * -1))
+      rotate(calc(var(--petal-rotate, 240deg) * 0.5));
+  }
+  75% {
+    transform: translateY(91.25vh) translateX(var(--petal-sway, 20px))
+      rotate(calc(var(--petal-rotate, 240deg) * 0.75));
+  }
+  92% {
+    opacity: var(--petal-opacity, 0.4);
+  }
+  100% {
+    transform: translateY(125vh) translateX(0)
+      rotate(var(--petal-rotate, 240deg));
+    opacity: 0;
+  }
+}
+
+.petal {
+  animation-name: petal-fall;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  /* Without this, a petal sits fully opaque at its default (untransformed)
+     position for its whole animation-delay instead of staying invisible
+     until its turn — "backwards" pulls the 0% keyframe's styles in early. */
+  animation-fill-mode: both;
+}
+
+/* Toggled on the overlay's root when document.hidden, so the animations
+   don't keep running (and burning battery) in a backgrounded tab. */
+.petals-paused .petal {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .petal {
     animation: none;
   }
 }

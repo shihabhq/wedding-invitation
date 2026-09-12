@@ -15,8 +15,12 @@ function sanitizeGuestName(raw: string | null): string {
 
 function InvitationSkeleton() {
   return (
-    <section className="relative w-full bg-paper">
-      <img src="/invite/background.jpg" alt="" className="w-full h-auto" />
+    <section className="relative h-[100svh] overflow-hidden bg-[#FFF0DF]">
+      <img
+        src="/invite/background.jpg"
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover object-center"
+      />
     </section>
   );
 }
@@ -53,49 +57,62 @@ function InvitationContent() {
     }`;
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-paper">
-      {/* Not a full-bleed frame — a page section, so plain w-full h-auto,
-          no object-fit. */}
-      <img
-        src="/invite/background.jpg"
-        alt=""
-        className="w-full h-auto"
-      />
-
-      {/*
-        The clear panel is offset right, not centred — hence the asymmetric
-        left/right insets. A tassel hangs in above 30% and the marble floor
-        starts below 66% (bottom-[34%]), so nothing may sit outside this
-        band.
-      */}
-      <div
-        className={`absolute left-[27%] right-[19%] top-[30%] bottom-[34%] flex flex-col items-center justify-center text-center ${reveal(
-          "motion-safe:opacity-0 motion-safe:translate-y-4",
-        )}`}
+    <>
+      <section
+        ref={sectionRef}
+        className="relative h-[100svh] overflow-hidden bg-[#FFF0DF]"
       >
-        <p className="font-name text-[clamp(1.3rem,6.5vw,1.9rem)] leading-[1.1] text-ink">
-          Dear {guestName}
-        </p>
+        {/* No aspect-locked wrapper: a fixed-ratio box always letterboxes on
+            one axis or the other depending on how the viewport's own ratio
+            compares to the artwork's (this asset is 1080/2333, ratio
+            0.4629 — close to a phone's own ratio, but a 375x667 screen is
+            0.562, wider than that, so a fixed box there would show cream
+            bars on the sides). The image fills the section directly via
+            object-cover instead, so it's always edge to edge on both axes,
+            cropping whichever axis a given phone needs. */}
+        <img
+          src="/invite/background.jpg"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
 
-        <p className="mt-2 font-label text-[clamp(0.9rem,4vw,1.15rem)] leading-[1.6] text-ink">
-          You and your family are cordially invited
-        </p>
+        {/*
+          The clear panel is offset right, not centred — hence the
+          asymmetric left/right insets. A tassel hangs in above ~26% and the
+          marble floor starts around 72% — text is positioned against the
+          section now (not the image), so this box is widened from the
+          artwork's own measurements to absorb whichever axis gets cropped.
+        */}
+        <div
+          className={`absolute left-[22%] right-[16%] top-[28%] bottom-[26%] flex flex-col items-center justify-center text-center ${reveal(
+            "motion-safe:opacity-0 motion-safe:translate-y-4",
+          )}`}
+        >
+          <p className="font-name text-[clamp(1.3rem,6.5vw,1.9rem)] leading-[1.1] text-ink">
+            Dear {guestName}
+          </p>
 
-        <div className="h-3" />
+          <p className="mt-2 font-label text-[clamp(0.9rem,4vw,1.15rem)] leading-[1.6] text-ink">
+            You and your family are cordially invited
+          </p>
 
-        <p className="font-label italic text-[clamp(0.8rem,3.4vw,1rem)] text-ink">
-          Regards
-        </p>
+          <div className="h-3" />
 
-        <p className="mt-1 font-label text-[clamp(0.85rem,3.8vw,1.1rem)] leading-[1.5] text-ink">
-          Md. Meftaur Rahman and Mrs. Meftaur Rahman
-        </p>
-      </div>
+          <p className="font-label italic text-[clamp(0.8rem,3.4vw,1rem)] text-ink">
+            Regards
+          </p>
+
+          <p className="mt-1 font-label text-[clamp(0.85rem,3.8vw,1.1rem)] leading-[1.5] text-ink">
+            Md. Meftaur Rahman and Mrs. Meftaur Rahman
+          </p>
+        </div>
+      </section>
 
       {/* This disclaimer line doesn't fit inside the panel, which is why it
-          sits below the artwork instead. */}
+          sits below the artwork as its own block instead of inside the
+          fixed-height section above. */}
       <div
-        className={`px-10 pt-5 pb-14 text-center ${reveal(
+        className={`bg-[#FFF0DF] px-10 pt-5 pb-14 text-center ${reveal(
           "motion-safe:opacity-0 motion-safe:translate-y-4",
         )}`}
       >
@@ -105,7 +122,7 @@ function InvitationContent() {
           Marriage Reception.
         </p>
       </div>
-    </section>
+    </>
   );
 }
 
