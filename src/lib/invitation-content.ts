@@ -28,3 +28,7 @@ export const WHEN_WHERE_CONTENT = {
   date: INVITATION_CONTENT.date,
   ceremonyTime: "8pm onwards reception",
 };
+
+// PLACEHOLDER — not a real RSVP link yet. Replace with the actual form/
+// contact URL before this goes anywhere near a guest.
+export const RSVP_URL = "https://forms.example.com/PLACEHOLDER-RSVP";

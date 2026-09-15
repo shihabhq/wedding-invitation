@@ -39,23 +39,25 @@ export default function Attire() {
           visible ? "" : "motion-safe:opacity-0 motion-safe:translate-y-4"
         }`}
       >
-        <h2 className="font-name text-[clamp(1.75rem,9vw,2.5rem)] leading-none text-ink">
+        <h2 className="font-script text-[clamp(2rem,8vw,2.2rem)] font-normal tracking-[0.02em] text-ink">
           Dress Code
         </h2>
 
-        <p className="mt-2 font-label text-[10px] uppercase tracking-[0.22em] text-ink">
-          What to wear
-        </p>
-
-        <div className="mx-auto my-3 flex w-[55%] items-center gap-2">
+        <div className="mx-auto mt-3 flex w-[55%] items-center gap-2">
           <span className="h-px flex-1 bg-gold" />
           <span className="h-1.5 w-1.5 rotate-45 bg-gold" />
           <span className="h-px flex-1 bg-gold" />
         </div>
 
-        <div className="font-label text-[clamp(0.95rem,4.2vw,1.2rem)] uppercase leading-[1.7] tracking-[0.1em] text-ink">
-          <p className="text-balance">Women: Saree or traditional wear</p>
-          <p className="text-balance">Men: Suit or Sherwani</p>
+        <div className="mt-3 font-formal text-[12px] font-semibold uppercase leading-[1.7] tracking-widest text-ink">
+          <p className="text-balance mt-3">
+            <span className="font-bold text-base">Women:</span> <br /> Saree or
+            traditional wear
+          </p>
+          <p className="text-balance mt-3">
+            <span className="font-bold text-base">Men:</span> <br /> Suit or
+            Sherwani
+          </p>
         </div>
       </div>
     </section>

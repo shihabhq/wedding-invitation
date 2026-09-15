@@ -10,8 +10,9 @@
 }
 
 @theme inline {
-  --font-name: var(--font-name);
-  --font-label: var(--font-label);
+  --font-script: var(--font-script);
+  --font-formal: var(--font-formal);
+  --font-garamond: var(--font-garamond);
 }
 
 body {
