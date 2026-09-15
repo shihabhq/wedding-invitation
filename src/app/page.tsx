@@ -9,6 +9,7 @@ import Hero from "@/components/hero";
 import IntroGate from "@/components/intro-gate";
 import Invitation from "@/components/invitation";
 import MuteToggle from "@/components/mute-toggle";
+import Rsvp from "@/components/rsvp";
 import WhenWhere from "@/components/when-where";
 
 const AUDIO_VOLUME = 0.35;
@@ -66,6 +67,7 @@ export default function Home() {
       <Attire />
       {/* <Divider from="#FFECE1" to="#FFF0DF" /> */}
       <Invitation />
+      <Rsvp />
       <MuteToggle audioRef={audioRef} visible={gateClosed} />
     </>
   );

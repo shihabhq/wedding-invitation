@@ -25,7 +25,7 @@ export default function MonogramMark({ label }: { label: string }) {
         <path d="M20 95 L20 70 A50 50 0 0 1 120 70 L120 95" />
         <path d="M30 92 L30 70 A40 40 0 0 1 110 70 L110 92" />
       </svg>
-      <span className="-mt-1 font-label text-[0.7rem] uppercase tracking-[0.35em] text-gold">
+      <span className="-mt-1 font-formal font-semibold text-[10px] uppercase tracking-[0.22em] text-gold">
         {label}
       </span>
     </div>

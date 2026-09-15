@@ -20,8 +20,8 @@ type IntroGateProps = {
 };
 
 // Fallback if the video's own duration can't be read for some reason.
-// elegant.mp4 runs about 9 seconds; padded to cover encode/playback jitter.
-const FALLBACK_DURATION_MS = 9500;
+// elegant.mp4 runs about 5.9 seconds; padded to cover encode/playback jitter.
+const FALLBACK_DURATION_MS = 6500;
 // Extra time past the video's own duration before the fallback timer fires,
 // so `ended` gets first chance and this only backs it up.
 const FALLBACK_BUFFER_MS = 400;
@@ -146,6 +146,7 @@ export default function IntroGate({ onClosed, onTap }: IntroGateProps) {
       <video
         ref={videoRef}
         src="/initial-screen/elegant.mp4"
+        poster="/initial-screen/elegant-poster.jpg"
         muted
         playsInline
         preload="auto"
@@ -154,18 +155,6 @@ export default function IntroGate({ onClosed, onTap }: IntroGateProps) {
           started ? "opacity-100" : "opacity-0"
         }`}
       />
-
-      {/* <div
-        aria-hidden
-        className={`pointer-events-none absolute inset-0 transition-opacity duration-150 ${
-          started ? "opacity-0" : "opacity-100"
-        }`}
-      >
-        <span className="absolute left-1/2 top-[50%] h-14 w-14 -translate-x-1/2 -translate-y-1/2 animate-gate-ring-pulse rounded-full border border-gold" />
-        <span className="absolute inset-x-0 bottom-[9%] text-center font-label text-xs uppercase tracking-[0.2em] text-paper">
-          Tap to open
-        </span>
-      </div> */}
     </div>
   );
 }

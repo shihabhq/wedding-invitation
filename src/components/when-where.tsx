@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { WHEN_WHERE_CONTENT } from "@/lib/invitation-content";
+import OrdinalDate from "@/components/ordinal-date";
 
 const REVEAL_THRESHOLD = 0.25;
 
@@ -65,27 +66,29 @@ export default function WhenWhere() {
           "motion-safe:opacity-0 motion-safe:translate-y-4",
         )}`}
       >
-        <h2 className="font-name text-[clamp(2rem,10vw,3rem)] leading-tight text-ink">
+        <h2 className="font-script text-[clamp(2rem,8vw,2.2rem)] font-normal tracking-[0.02em] text-ink">
           When &amp; Where
         </h2>
 
-        {/* <p className="mt-2 font-label text-[10px] uppercase tracking-[0.22em] text-ink">
+        {/* <p className="mt-7 font-script text-[10px] uppercase tracking-[0.22em] text-ink">
           {WHEN_WHERE_CONTENT.eyebrow}
         </p> */}
 
-        <div className="my-3 flex w-[55%] items-center gap-2">
+        <div className="mt-2 flex w-[55%] items-center gap-1">
           <span className="h-px flex-1 bg-gold" />
           <span className="h-1.5 w-1.5 rotate-45 bg-gold" />
           <span className="h-px flex-1 bg-gold" />
         </div>
 
-        {/* <p className="font-label italic text-[clamp(1.05rem,5vw,1.5rem)] text-ink">
+        {/* <p className="mt-7 font-script text-[clamp(1.05rem,4.6vw,1.3rem)] font-semibold text-ink">
           {WHEN_WHERE_CONTENT.eventLine}
         </p> */}
 
-        <div className="mt-3 font-label text-[clamp(0.95rem,4.2vw,1.25rem)] leading-[1.5] text-ink">
+        <div className="mt-7 font-formal text-[clamp(0.95rem,4.2vw,1.15rem)] leading-[1.45] text-ink">
           <p>{WHEN_WHERE_CONTENT.venue}</p>
-          <p>{WHEN_WHERE_CONTENT.date}</p>
+          <p>
+            <OrdinalDate value={WHEN_WHERE_CONTENT.date} />
+          </p>
           <p>{WHEN_WHERE_CONTENT.ceremonyTime}</p>
         </div>
       </div>
@@ -107,7 +110,7 @@ export default function WhenWhere() {
           href={mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-full border border-gold bg-[#FFF5E4]/80 px-8 py-2 font-label text-[14px] text-ink"
+          className="rounded-full uppercase font-garamond border border-gold bg-[#FFF5E4]/80 px-8 py-2 text-[14px] text-ink"
         >
           View map
         </a>

@@ -3,6 +3,7 @@
 import { type ReactNode, useEffect, useState } from "react";
 import { INVITATION_CONTENT, MONOGRAM_LABEL } from "@/lib/invitation-content";
 import MonogramMark from "@/components/monogram-mark";
+import OrdinalDate from "@/components/ordinal-date";
 
 type HeroProps = {
   gateClosed: boolean;
@@ -95,14 +96,13 @@ export default function Hero({ gateClosed }: HeroProps) {
 
   useEffect(() => {
     if (!gateClosed) return;
-    const timer = setTimeout(() => setRevealed(true), 100);
+    const timer = setTimeout(() => setRevealed(true), 400);
     return () => clearTimeout(timer);
   }, [gateClosed]);
 
-  // Alex Brush has a small cap height relative to its em, so it needs to run
-  // noticeably larger than a serif to read the same size on the page.
+  // Pinyon Script — the couple's names only, nowhere else on the site.
   const nameClassName =
-    "font-name text-[clamp(2.4rem,12vw,3.4rem)] leading-none text-ink";
+    "font-script text-[clamp(2.4rem,12vw,3.4rem)] leading-[1.1] text-ink";
 
   return (
     <section className="relative h-svh overflow-hidden bg-paper">
@@ -136,7 +136,7 @@ export default function Hero({ gateClosed }: HeroProps) {
       </RevealItem>
 
       <RevealItem show={revealed} delayMs={300} topPercent={AMPERSAND_TOP}>
-        <span className="font-name text-[clamp(1.5rem,6vw,2.1rem)] leading-none text-gold">
+        <span className="font-formal text-[clamp(1.5rem,6vw,2.1rem)] leading-none text-gold">
           &amp;
         </span>
       </RevealItem>
@@ -156,10 +156,10 @@ export default function Hero({ gateClosed }: HeroProps) {
 
       <RevealItem show={revealed} delayMs={800} topPercent={DATE_TOP}>
         <span
-          className="font-label text-xs uppercase tracking-[0.2em] text-ink"
+          className="font-formal text-[10px] uppercase font-bold tracking-[0.22em] text-ink"
           style={{ maxWidth: `${ovalMaxWidthVw(DATE_TOP)}vw` }}
         >
-          {INVITATION_CONTENT.date}
+          <OrdinalDate value={INVITATION_CONTENT.date} />
         </span>
       </RevealItem>
     </section>
