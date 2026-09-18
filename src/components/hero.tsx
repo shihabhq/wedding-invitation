@@ -2,8 +2,13 @@
 
 import { type ReactNode, useEffect, useState } from "react";
 import { INVITATION_CONTENT, MONOGRAM_LABEL } from "@/lib/invitation-content";
+import EdgeFeather from "@/components/edge-feather";
 import MonogramMark from "@/components/monogram-mark";
 import OrdinalDate from "@/components/ordinal-date";
+
+// This section's own paper tone — must match bg-paper exactly or the
+// EdgeFeather gradients read as a grey band instead of blending in.
+const SECTION_BG = "#FFECE1";
 
 type HeroProps = {
   gateClosed: boolean;
@@ -58,7 +63,7 @@ function ovalMaxWidthVw(heightPercent: number): number {
 const MONOGRAM_TOP = 31;
 const NAME_ONE_TOP = 43;
 const AMPERSAND_TOP = 50;
-const NAME_TWO_TOP = 53;
+const NAME_TWO_TOP = 56;
 const RULE_TOP = 62;
 const DATE_TOP = 65;
 
@@ -101,8 +106,7 @@ export default function Hero({ gateClosed }: HeroProps) {
   }, [gateClosed]);
 
   // Pinyon Script — the couple's names only, nowhere else on the site.
-  const nameClassName =
-    "font-script text-[clamp(2.4rem,12vw,3.4rem)] leading-[1.1] text-ink";
+  const nameClassName = "font-script text-[clamp(1.5rem,12vw,2.5rem)] text-ink";
 
   return (
     <section className="relative h-svh overflow-hidden bg-paper">
@@ -119,6 +123,7 @@ export default function Hero({ gateClosed }: HeroProps) {
         alt=""
         className="absolute inset-0 h-full w-full object-cover object-center"
       />
+      <EdgeFeather color={SECTION_BG} />
 
       <RevealItem show={revealed} delayMs={0} topPercent={MONOGRAM_TOP}>
         <div style={{ maxWidth: `${ovalMaxWidthVw(MONOGRAM_TOP)}vw` }}>
@@ -136,7 +141,7 @@ export default function Hero({ gateClosed }: HeroProps) {
       </RevealItem>
 
       <RevealItem show={revealed} delayMs={300} topPercent={AMPERSAND_TOP}>
-        <span className="font-formal text-[clamp(1.5rem,6vw,2.1rem)] leading-none text-gold">
+        <span className="font-script text-[clamp(1.5rem,6vw,2.1rem)] leading-none text-gold">
           &amp;
         </span>
       </RevealItem>
@@ -156,7 +161,7 @@ export default function Hero({ gateClosed }: HeroProps) {
 
       <RevealItem show={revealed} delayMs={800} topPercent={DATE_TOP}>
         <span
-          className="font-formal text-[10px] uppercase font-bold tracking-[0.22em] text-ink"
+          className="font-serif italic text-base uppercase font-bold tracking-[0.22em] text-ink"
           style={{ maxWidth: `${ovalMaxWidthVw(DATE_TOP)}vw` }}
         >
           <OrdinalDate value={INVITATION_CONTENT.date} />

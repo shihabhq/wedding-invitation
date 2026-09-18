@@ -2,8 +2,12 @@
 
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import EdgeFeather from "@/components/edge-feather";
 
 const REVEAL_THRESHOLD = 0.25;
+// This section's own paper tone — must match the section's bg-[...] exactly
+// or the EdgeFeather gradients read as a grey band instead of blending in.
+const SECTION_BG = "#FFF0DF";
 
 // searchParams.get() already percent-decodes; this only strips tags so a
 // guest-supplied name can't inject markup into the page.
@@ -21,6 +25,7 @@ function InvitationSkeleton() {
         alt=""
         className="absolute inset-0 h-full w-full object-cover object-center"
       />
+      <EdgeFeather color={SECTION_BG} />
     </section>
   );
 }
@@ -75,6 +80,7 @@ function InvitationContent() {
           alt=""
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
+        <EdgeFeather color={SECTION_BG} />
 
         {/*
           The clear panel is offset right, not centred — hence the
@@ -88,19 +94,21 @@ function InvitationContent() {
             "motion-safe:opacity-0 motion-safe:translate-y-4",
           )}`}
         >
-          <p className="font-script text-[clamp(1.8rem,4.6vw,1.3rem)] font-medium leading-[1.45] text-ink">
-            Dear <br /> {guestName},
+          <p className="font-script text-[clamp(1.5rem,4.6vw,2rem)] font-medium leading-[1.45] text-ink">
+            Dear Guest,
           </p>
 
-          <p className="font-formal mt-2 text-[clamp(0.5rem,4.2vw,1rem)] font-normal leading-[1.45] text-ink">
-            your presence at our daughter&rsquo;s big day would make it more
-            special
+          <p className="font-serif mt-2 text-[clamp(0.8rem,4.2vw,1rem)] font-normal leading-[1.45] text-ink">
+            It would bring us great joy to have you with us as we celebrate the
+            wedding of Nazifa and Arshia.
           </p>
 
-          {/* <p className="mt-7 font-script text-[clamp(1.4rem,4.6vw,1.3rem)] font-semibold leading-[1.45] text-ink">
-            Mr &amp; Mrs <br />
-            Meftaur Rahman
-          </p> */}
+          <p className="mt-7 font-script text-[clamp(.6rem,4.6vw,1.3rem)] font-semibold leading-[1.45] text-ink">
+            With Love <br />
+          </p>
+          <p className="font-serif">
+            Mohammad Meftaur Rahman & Parveen Akhter Rahman
+          </p>
         </div>
       </section>
     </>

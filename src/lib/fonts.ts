@@ -1,34 +1,33 @@
-// Typography: three faces.
-// Pinyon Script (--font-script) — the couple's names in the hero.
-// Petit Formal Script (--font-formal) — the smaller accent/detail lines
-// (ampersand and date in the hero, Countdown, When & Where's venue/date/
-// time and its map button, Attire's dress-code lines, and the Invitation
-// sign-off).
-// EB Garamond (--font-garamond) — RSVP's heading and button only, brought
-// back for that one section after being removed everywhere else.
+// Typography: two faces.
+// Aston Script (--font-script) — the couple's names in the hero, and
+// nowhere else. Self-hosted local file (public/fonts/Aston Script.ttf),
+// not a Google Font.
+// Cormorant (--font-serif) — everything else that isn't the names: hero's
+// ampersand and date, Countdown, When & Where's venue/date/time and its map
+// button, Attire's dress-code lines, Invitation's sign-off, and RSVP's
+// heading and button. Loaded with both normal and italic styles so either
+// is available via Tailwind's `italic` utility, though nothing currently
+// uses italic.
 //
 // Rejected by the client, never use: Great Vibes, Dancing Script, Sacramento,
 // Parisienne, Allura, Tangerine, or any other bouncy handwriting face.
 
-import { EB_Garamond, Petit_Formal_Script, Pinyon_Script } from "next/font/google";
+import { Cormorant } from "next/font/google";
+import localFont from "next/font/local";
 
-const pinyonScript = Pinyon_Script({
+const astonScript = localFont({
+  src: "../../public/fonts/Aston Script.ttf",
   variable: "--font-script",
-  subsets: ["latin"],
   weight: "400",
+  display: "swap",
 });
 
-const petitFormalScript = Petit_Formal_Script({
-  variable: "--font-formal",
+const cormorant = Cormorant({
+  variable: "--font-serif",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
-const ebGaramond = EB_Garamond({
-  variable: "--font-garamond",
-  subsets: ["latin"],
-  weight: "400",
-});
-
-// Applied on <html> so all three custom properties are available anywhere.
-export const fontVariables = `${pinyonScript.variable} ${petitFormalScript.variable} ${ebGaramond.variable}`;
+// Applied on <html> so both custom properties are available anywhere.
+export const fontVariables = `${astonScript.variable} ${cormorant.variable}`;

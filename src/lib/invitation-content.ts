@@ -4,7 +4,7 @@
 export const INVITATION_CONTENT = {
   nameOne: "Nazifa", // TODO: first partner's name
   nameTwo: "Arshia", // TODO: second partner's name
-  date: "2nd Jan 2027",
+  date: "2Nd Jan 2027",
   venue: "Hotel Intercontinental",
 };
 

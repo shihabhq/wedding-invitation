@@ -7,6 +7,11 @@ import {
   useRef,
   useState,
 } from "react";
+import EdgeFeather from "@/components/edge-feather";
+
+// This overlay's own background tone — must match bg-paper exactly or the
+// EdgeFeather gradients read as a grey band instead of blending in.
+const SECTION_BG = "#FFECE1";
 
 type IntroGateProps = {
   onClosed: () => void;
@@ -140,7 +145,7 @@ export default function IntroGate({ onClosed, onTap }: IntroGateProps) {
         src="/initial-screen/elegant-poster.jpg"
         alt=""
         className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-50 ${
-          started ? "opacity-0" : "opacity-100"
+          started ? "display-none" : ""
         }`}
       />
       <video
@@ -155,6 +160,7 @@ export default function IntroGate({ onClosed, onTap }: IntroGateProps) {
           started ? "opacity-100" : "opacity-0"
         }`}
       />
+      <EdgeFeather color={SECTION_BG} />
     </div>
   );
 }
