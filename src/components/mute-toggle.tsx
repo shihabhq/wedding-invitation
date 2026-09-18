@@ -22,8 +22,9 @@ export default function MuteToggle({ audioRef, visible }: MuteToggleProps) {
     <button
       type="button"
       onClick={toggle}
+      aria-pressed={muted}
       aria-label={muted ? "Unmute background music" : "Mute background music"}
-      className="fixed right-4 top-4 z-40 flex h-8 w-8 items-center justify-center text-ink/40 transition-opacity hover:text-ink/70"
+      className="fixed right-4 top-4 z-[45] flex h-9 w-9 items-center justify-center rounded-full border border-gold bg-transparent text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
     >
       <svg
         width="20"
