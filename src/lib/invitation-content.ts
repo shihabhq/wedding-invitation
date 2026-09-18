@@ -31,4 +31,4 @@ export const WHEN_WHERE_CONTENT = {
 
 // PLACEHOLDER — not a real RSVP link yet. Replace with the actual form/
 // contact URL before this goes anywhere near a guest.
-export const RSVP_URL = "https://forms.example.com/PLACEHOLDER-RSVP";
+export const RSVP_URL = "https://app.invitavo.net/i/rrzKiJbLdWjZ2nT7ZaUC1g";
