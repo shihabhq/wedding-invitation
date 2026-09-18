@@ -29,7 +29,7 @@ function InvitationContent() {
   const sectionRef = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
   const searchParams = useSearchParams();
-  const guestName = sanitizeGuestName(searchParams.get("to"));
+  const guestName = "Meftaur Rahman";
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -88,36 +88,21 @@ function InvitationContent() {
             "motion-safe:opacity-0 motion-safe:translate-y-4",
           )}`}
         >
-          <p className="font-script text-[clamp(2rem,4.6vw,1.3rem)] font-medium leading-[1.45] text-ink">
-            Dear {guestName},
+          <p className="font-script text-[clamp(1.8rem,4.6vw,1.3rem)] font-medium leading-[1.45] text-ink">
+            Dear <br /> {guestName},
           </p>
 
-          <p className="font-formal text-[clamp(0.5rem,4.2vw,1.15rem)] font-normal leading-[1.45] text-ink">
+          <p className="font-formal mt-2 text-[clamp(0.5rem,4.2vw,1rem)] font-normal leading-[1.45] text-ink">
             your presence at our daughter&rsquo;s big day would make it more
             special
           </p>
 
-          <p className="mt-7 font-script text-[clamp(1.4rem,4.6vw,1.3rem)] font-semibold leading-[1.45] text-ink">
+          {/* <p className="mt-7 font-script text-[clamp(1.4rem,4.6vw,1.3rem)] font-semibold leading-[1.45] text-ink">
             Mr &amp; Mrs <br />
             Meftaur Rahman
-          </p>
+          </p> */}
         </div>
       </section>
-
-      {/* This disclaimer line doesn't fit inside the panel, which is why it
-          sits below the artwork as its own block instead of inside the
-          fixed-height section above. */}
-      {/* <div
-        className={`bg-[#FFF0DF] px-10 pt-5 pb-14 text-center ${reveal(
-          "motion-safe:opacity-0 motion-safe:translate-y-4",
-        )}`}
-      >
-        <span className="mx-auto block h-px w-[40%] bg-gold" />
-        <p className="mt-4 font-script text-[11px] leading-[1.6] text-ink/70">
-          You are receiving this because you are on the guest list for the
-          Marriage Reception.
-        </p>
-      </div> */}
     </>
   );
 }
