@@ -49,14 +49,14 @@ export default function Attire() {
           <span className="h-px flex-1 bg-gold" />
         </div>
 
-        <div className="mt-3 font-formal text-[12px] font-semibold uppercase leading-[1.7] tracking-widest text-ink">
+        <div className="mt-3 font-serif text-base font-semibold uppercase leading-[1.7] tracking-widest text-ink">
           <p className="text-balance mt-3">
-            <span className="font-bold text-base">Women:</span> <br /> Saree or
-            traditional wear
+            <span className="font-bold text-base italic">Women:</span> <br />{" "}
+            Saree or traditional wear
           </p>
           <p className="text-balance mt-3">
-            <span className="font-bold text-base">Men:</span> <br /> Suit or
-            Sherwani
+            <span className="font-bold text-base italic">Men:</span> <br /> Suit
+            or Sherwani
           </p>
         </div>
       </div>

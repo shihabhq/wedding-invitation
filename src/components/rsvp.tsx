@@ -32,31 +32,44 @@ export default function Rsvp() {
     }`;
 
   return (
-    <section ref={sectionRef} className="relative w-full mb-40 bg-paper">
-      {/* Transparent PNG, not a full-bleed frame — no object-fit, just the
-          artwork sitting on the page's own paper color. */}
-      <img src="/rsvp/background.png" alt="" className="w-full h-auto" />
+    <section
+      ref={sectionRef}
+      className="relative h-[100svh] overflow-hidden bg-[#F7E6D6]"
+    >
+      {/* Full-bleed cream linen, same pattern as the hero — no aspect-locked
+          wrapper, object-cover fills the section directly on both axes
+          regardless of how the viewport's ratio compares to the artwork's.
+          A 13% fade is baked into this asset's own top/bottom edges, so no
+          CSS edge gradient here — layering one on top would double the
+          effect and band on cheap screens. */}
+      <img
+        src="/rsvp/background.jpg"
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover object-center"
+      />
 
-      {/* The clear interior runs 16%–80% of the image height, ~56%–67% of
-          the width across that band. inset-x-[24%]/top-[20%]/bottom-[24%]
-          sits inside that with margin on every side. Heading + button only
-          — nothing else, the frame is already the decoration. */}
+      {/* The cartouche interior sits inside inset-x-[24%]/top-[36%]/
+          bottom-[36%] with margin at every phone size. */}
       <div
-        className={`absolute inset-x-[24%] top-[20%] bottom-[24%] flex flex-col items-center justify-center text-center ${reveal(
+        className={`absolute inset-x-[24%] top-[36%] bottom-[36%] flex flex-col items-center justify-center text-center ${reveal(
           "motion-safe:opacity-0 motion-safe:translate-y-4",
         )}`}
       >
-        <h2 className="font-script text-[clamp(2.6rem,8vw,2.2rem)] font-semibold  tracking-[0.08em] text-ink">
-          RSVP
-        </h2>
+        <p className="font-serif text-[clamp(1.2rem,4.4vw,1.2rem)] leading-[1.6] text-ink">
+          We invite you to celebrate with us, and we hope you can make it!
+        </p>
+
+        <p className="mt-5 font-serif text-[clamp(1rem,4.4vw,1.2rem)] leading-[1.6] text-ink">
+          Please RSVP below.
+        </p>
 
         <a
           href={RSVP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-6 flex min-h-[44px] font-garamond items-center rounded-full border border-gold bg-transparent px-7 py-3 font-normal text-base uppercase tracking-[0.16em] text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+          className="mt-8 inline-flex min-h-[44px] items-center justify-center rounded-full border border-gold bg-transparent px-7 py-3 font-serif text-base uppercase tracking-[0.16em] text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
         >
-          Reserve
+          RSVP
         </a>
       </div>
     </section>

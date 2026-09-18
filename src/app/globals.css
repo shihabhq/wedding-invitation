@@ -11,8 +11,7 @@
 
 @theme inline {
   --font-script: var(--font-script);
-  --font-formal: var(--font-formal);
-  --font-garamond: var(--font-garamond);
+  --font-serif: var(--font-serif);
 }
 
 body {

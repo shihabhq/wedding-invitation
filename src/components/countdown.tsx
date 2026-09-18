@@ -72,7 +72,7 @@ export default function Countdown() {
         visible ? "" : "motion-safe:opacity-0 motion-safe:translate-y-4"
       }`}
     >
-      <p className="font-formal text-[12px] uppercase font-bold tracking-[0.22em] text-ink">
+      <p className="font-serif text-base uppercase font-bold tracking-[0.22em] text-ink">
         Counting the days
       </p>
 
@@ -84,10 +84,10 @@ export default function Countdown() {
               key={key}
               className="flex w-19 flex-col items-center rounded-lg border border-gold/25 bg-white px-2 py-4"
             >
-              <span className="font-formal text-[clamp(1.5rem,7vw,2.25rem)] leading-none tabular-nums text-ink">
+              <span className="font-serif text-[clamp(1.5rem,7vw,2.25rem)] leading-none tabular-nums text-ink">
                 {pad ? String(value).padStart(2, "0") : value}
               </span>
-              <span className="mt-2 font-formal text-[8px] font-bold uppercase tracking-[0.2em] text-gold">
+              <span className="mt-2 font-serif text-[9px] font-bold uppercase tracking-[0.2em] text-gold">
                 {label}
               </span>
             </div>

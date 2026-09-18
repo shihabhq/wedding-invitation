@@ -2,9 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { WHEN_WHERE_CONTENT } from "@/lib/invitation-content";
+import EdgeFeather from "@/components/edge-feather";
 import OrdinalDate from "@/components/ordinal-date";
 
 const REVEAL_THRESHOLD = 0.25;
+// This section's own paper tone — must match the section's bg-[...] exactly
+// or the EdgeFeather gradients read as a grey band instead of blending in.
+const SECTION_BG = "#FFF5E4";
 
 function buildGoogleMapsUrl(venue: string): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue)}`;
@@ -60,13 +64,14 @@ export default function WhenWhere() {
         alt=""
         className="absolute inset-0 h-full w-full object-cover object-center"
       />
+      <EdgeFeather color={SECTION_BG} />
 
       <div
         className={`absolute inset-x-[18%] top-[16%] bottom-[30%] flex flex-col items-center justify-center text-center ${reveal(
           "motion-safe:opacity-0 motion-safe:translate-y-4",
         )}`}
       >
-        <h2 className="font-script text-[clamp(2rem,8vw,2.2rem)] font-normal tracking-[0.02em] text-ink">
+        <h2 className="font-script text-[clamp(2rem,8vw,2.6rem)] font-normal tracking-[0.02em] text-ink">
           When &amp; Where
         </h2>
 
@@ -84,7 +89,7 @@ export default function WhenWhere() {
           {WHEN_WHERE_CONTENT.eventLine}
         </p> */}
 
-        <div className="mt-7 font-formal text-[clamp(0.95rem,4.2vw,1.15rem)] leading-[1.45] text-ink">
+        <div className="mt-7 font-serif text-[clamp(1.2rem,5vw,2rem)] leading-[1.45] text-ink">
           <p>{WHEN_WHERE_CONTENT.venue}</p>
           <p>
             <OrdinalDate value={WHEN_WHERE_CONTENT.date} />
@@ -102,7 +107,7 @@ export default function WhenWhere() {
         even where a rooftop or minaret tip still reaches into that band.
       */}
       <div
-        className={`absolute inset-x-0 bottom-[38%] flex justify-center ${reveal(
+        className={`absolute inset-x-0 bottom-[35%] flex justify-center ${reveal(
           "motion-safe:opacity-0 motion-safe:translate-y-4",
         )}`}
       >
@@ -110,7 +115,7 @@ export default function WhenWhere() {
           href={mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-full uppercase font-garamond border border-gold bg-[#FFF5E4]/80 px-8 py-2 text-[14px] text-ink"
+          className="rounded-full uppercase font-serif border border-gold bg-[#FFF5E4]/80 px-8 py-2 text-[14px] text-ink"
         >
           View map
         </a>
