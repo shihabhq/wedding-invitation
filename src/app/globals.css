@@ -106,3 +106,15 @@ body {
     animation: none;
   }
 }
+
+/* Hero's scroll cue (components/scroll-cue.tsx) — gentle bob on the chevron
+   only, not the "Scroll" word above it. */
+@keyframes scroll-cue-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}

@@ -44,7 +44,7 @@ export default function WhenWhere() {
       visible ? "" : hiddenClasses
     }`;
 
-  const mapsUrl = buildGoogleMapsUrl(WHEN_WHERE_CONTENT.venue);
+  const mapsUrl = "https://maps.app.goo.gl/DiJ9C3rnRScMHd3y5";
 
   return (
     <section
