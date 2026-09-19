@@ -6,6 +6,7 @@ import EdgeFeather from "@/components/edge-feather";
 import MonogramMark from "@/components/monogram-mark";
 import OrdinalDate from "@/components/ordinal-date";
 import ScrollCue from "@/components/scroll-cue";
+import { SCROLL_CUE_STRIP_HEIGHT_CLASS } from "@/lib/layout";
 
 // This section's own paper tone — must match bg-paper exactly or the
 // EdgeFeather gradients read as a grey band instead of blending in.
@@ -201,7 +202,9 @@ export default function Hero({ gateClosed }: HeroProps) {
         </RevealItem>
       </div>
 
-      <div className="flex h-14 shrink-0 items-center justify-center">
+      <div
+        className={`flex ${SCROLL_CUE_STRIP_HEIGHT_CLASS} shrink-0 items-center justify-center`}
+      >
         <ScrollCue visible={showScrollCue} />
       </div>
     </section>
