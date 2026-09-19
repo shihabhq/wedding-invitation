@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import EdgeFeather from "@/components/edge-feather";
+import { SCROLL_CUE_STRIP_HEIGHT_CLASS } from "@/lib/layout";
 
 // This overlay's own background tone — must match bg-paper exactly or the
 // EdgeFeather gradients read as a grey band instead of blending in.
@@ -130,37 +131,43 @@ export default function IntroGate({ onClosed, onTap }: IntroGateProps) {
       aria-label="Tap to open the invitation"
       onClick={handleOpen}
       onKeyDown={handleKeyDown}
-      className={`fixed inset-0 z-50 overflow-hidden bg-paper transition-opacity duration-500 ease-out ${
+      className={`fixed inset-0 z-50 flex flex-col overflow-hidden bg-paper transition-opacity duration-500 ease-out ${
         closing ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
-      {/* No aspect-locked wrapper: a fixed-ratio box always letterboxes on
-          one axis or the other depending on how the viewport's own ratio
-          compares to the artwork's (1080/1920 vs a viewport that can be
-          either narrower or wider than that) — there's no single box size
-          that avoids it for every phone. Poster and video fill this
-          fixed-positioned overlay directly via object-cover, so it's always
-          edge to edge on both axes, cropping whichever axis needs it. */}
-      <img
-        src="/initial-screen/elegant-poster.jpg"
-        alt=""
-        className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-50 ${
-          started ? "display-none" : ""
-        }`}
-      />
-      <video
-        ref={videoRef}
-        src="/initial-screen/elegant.mp4"
-        poster="/initial-screen/elegant-poster.jpg"
-        muted
-        playsInline
-        preload="auto"
-        onEnded={closeGate}
-        className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-50 ${
-          started ? "opacity-100" : "opacity-0"
-        }`}
-      />
-      <EdgeFeather color={SECTION_BG} />
+      {/* min-h-0 lets this flex child actually shrink below its content's
+          natural size — matches hero.tsx's image container exactly, so the
+          gate's last frame and the hero's first frame are the same box. */}
+      <div className="relative min-h-0 flex-1">
+        {/* No aspect-locked wrapper: a fixed-ratio box always letterboxes on
+            one axis or the other depending on how the viewport's own ratio
+            compares to the artwork's (1080/1920 vs a viewport that can be
+            either narrower or wider than that) — there's no single box size
+            that avoids it for every phone. Poster and video fill this
+            container directly via object-cover, so it's always edge to edge
+            on both axes, cropping whichever axis needs it. */}
+        <img
+          src="/initial-screen/elegant-poster.jpg"
+          alt=""
+          className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-50 ${
+            started ? "display-none" : ""
+          }`}
+        />
+        <video
+          ref={videoRef}
+          src="/initial-screen/elegant.mp4"
+          poster="/initial-screen/elegant-poster.jpg"
+          muted
+          playsInline
+          preload="auto"
+          onEnded={closeGate}
+          className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-50 ${
+            started ? "opacity-100" : "opacity-0"
+          }`}
+        />
+        <EdgeFeather color={SECTION_BG} />
+      </div>
+      <div className={`${SCROLL_CUE_STRIP_HEIGHT_CLASS} shrink-0`} aria-hidden />
     </div>
   );
 }
