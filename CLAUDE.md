@@ -34,14 +34,14 @@ Next.js (App Router), TypeScript, Tailwind. Deploys to Vercel.
 
 ## Design tokens
 
-| token   | hex       | use                                           |
-| ------- | --------- | --------------------------------------------- |
+| token   | hex       | use                                                             |
+| ------- | --------- | --------------------------------------------------------------- |
 | `paper` | `#FFECE1` | page background; also hero, intro gate, and Attire's own ground |
-| `oval`  | `#FAE7D9` | interior of the oval cartouche                |
-| `blush` | `#E8C3C6` | soft pink accents                             |
-| `sage`  | `#9AA890` | green accents                                 |
-| `gold`  | `#B79762` | hairlines, buttons, small ornaments           |
-| `ink`   | `#6B5545` | body and heading text                         |
+| `oval`  | `#FAE7D9` | interior of the oval cartouche                                  |
+| `blush` | `#E8C3C6` | soft pink accents                                               |
+| `sage`  | `#9AA890` | green accents                                                   |
+| `gold`  | `#B79762` | hairlines, buttons, small ornaments                             |
+| `ink`   | `#6B5545` | body and heading text                                           |
 
 Each image-led section has its own letterbox color matching its own asset's
 ground, not one shared value: hero and intro gate `#FFECE1` (`paper`), When &
@@ -109,7 +109,10 @@ the image jump mid-scroll). All four now fill edge to edge on both axes:
 
 ```tsx
 <section className="relative h-[100svh] overflow-hidden bg-[...]">
-  <img className="absolute inset-0 h-full w-full object-cover object-center" alt="" />
+  <img
+    className="absolute inset-0 h-full w-full object-cover object-center"
+    alt=""
+  />
   <div className="absolute inset-x-0 top-[16%] px-6 text-center">
     <h2 className="text-[clamp(2rem,9vw,3.5rem)] font-script">Heading</h2>
   </div>
@@ -126,20 +129,20 @@ Two earlier approaches were tried here and both broke on some phone size, in
 case either looks tempting to bring back:
 
 - **A `w-full`-driven wrapper** (`<div className="relative w-full"><img
-  className="w-full h-auto object-contain" /></div>`) sizes the box from the
+className="w-full h-auto object-contain" /></div>`) sizes the box from the
   image's own intrinsic ratio, decoupled from the section, so it never
   crops. It letterboxes instead — fine when the artwork is reliably wider
   than the viewport (hero and When & Where's assets, ratio 0.5625, always
   are, against any realistic phone), but on an asset closer to a phone's own
-  ratio (Invitation's second background, 0.4629) a *wider* viewport than the
-  art (e.g. 375×667 is 0.562) means the box comes out *narrower* than the
+  ratio (Invitation's second background, 0.4629) a _wider_ viewport than the
+  art (e.g. 375×667 is 0.562) means the box comes out _narrower_ than the
   section, and you get cream bars on the sides instead of nothing — a fixed
   box can only avoid letterboxing on one axis, never both, depending on
   which way the mismatch runs.
 - **An `h-full` + `aspect-[W/H]` wrapper** with `shrink-0` (to stop flex from
   shrinking the box back down to the section's width) does fill the height
   and crop the sides, and was the interim fix — but it has the exact same
-  problem in reverse: on a viewport *wider* than the art's own ratio, the
+  problem in reverse: on a viewport _wider_ than the art's own ratio, the
   box comes out too narrow and still letterboxes sideways, just without
   `shrink-0` ever helping (there's nothing to shrink from). There's no fixed
   aspect ratio that avoids letterboxing on both possible mismatch directions
@@ -195,7 +198,7 @@ not the render order).
 Every full-screen section is now exactly `h-[100svh]` tall (was `min-h-svh`
 or unset), fixing a real bug that would otherwise have followed: once a
 section's height is forced rather than auto/minimum, text absolutely
-positioned by percentage against the *section* drifts from the artwork,
+positioned by percentage against the _section_ drifts from the artwork,
 because the section can be taller than the image's own letterboxed size.
 Every image-led section positions its text against the inner `w-full` image
 wrapper instead — see "Section layout pattern" above. Countdown and Attire
@@ -269,7 +272,7 @@ are unaffected (see that section for why).
 - `src/components/falling-petals.tsx` — `fixed inset-0 z-40`, mounted once in
   `page.tsx` (not per section), sits below the gate's `z-50` so it never
   shows through the closed envelope. 12 petals, one shared `@keyframes
-  petal-fall` (globals.css) driven by per-petal CSS custom properties
+petal-fall` (globals.css) driven by per-petal CSS custom properties
   (`--petal-sway`, `--petal-rotate`, `--petal-opacity`) set inline, rather
   than 12 separate keyframe blocks. Only `transform`/`opacity` animate.
   Random values (size, color, position, timing, sway, rotation, opacity) are
@@ -325,7 +328,7 @@ are unaffected (see that section for why).
   registered as Tailwind colors in `src/app/globals.css`. When & Where's own
   paper tone (`#FFF5E4`) is asset-specific and used inline, not added to this
   table.
-- `public/audio/wedding-audio.mp3` — background track, looped, ramped to 0.35
+- `public/audio/elegant.mp4` — background track, looped, ramped to 0.35
   on the gate tap.
 - `public/where/background.jpg` — When & Where's Persian-arch artwork.
 - `public/attire/dresses.png` — Attire's transparent embroidered-guests
