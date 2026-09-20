@@ -47,12 +47,7 @@ export default function Home() {
 
   return (
     <>
-      <audio
-        ref={audioRef}
-        src="/audio/wedding-audio.mp3"
-        loop
-        preload="auto"
-      />
+      <audio ref={audioRef} src="/audio/elegant.mp4" loop preload="auto" />
       {/* z-40, below the gate's z-50, so petals never cover the envelope. */}
       <FallingPetals />
       <IntroGate onClosed={handleGateClosed} onTap={startAudio} />
